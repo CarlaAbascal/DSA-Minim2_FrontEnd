@@ -45,6 +45,10 @@
             android:name=".RegisterActivity"
             android:exported="true"
             android:theme="@style/Theme.Martianslog" />
+        <activity
+            android:name=".FaqActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Martianslog" />
     </application>
 
 </manifest>

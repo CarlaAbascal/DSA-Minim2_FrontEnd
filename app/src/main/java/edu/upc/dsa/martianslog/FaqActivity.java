@@ -1,33 +1,33 @@
 package edu.upc.dsa.martianslog;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.IOException;
 import java.util.List;
 
 import edu.upc.dsa.martianslog.models.FAQ;
+import edu.upc.dsa.martianslog.models.Product;
 import edu.upc.dsa.martianslog.service.ApiService;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class FaqActivity {
+public class FaqActivity extends AppCompatActivity {
     ApiService apiService;
     private RecyclerView recyclerViewFAQ;
-    private RecycleViewAdapterFAQ adapterFAQ;
-    public static final String API_URL="http://10.0.2.2:8080/dsaApp/";
-    private static final String TAG= "POKEDEX";
+    private AdapterFAQ adapter;
+    public static final String API_URL = "http://10.0.2.2:8080/dsaApp/";
+    private static final String TAG = "POKEDEX";
 
-   @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -40,20 +40,25 @@ public class FaqActivity {
 
     }
 
+    private void fetchFAQs(){
+        Call<List<FAQ>> call = apiService.getFAQs();
+        call.enqueue(new Callback<List<FAQ>>() {
+            @Override
+            public void onResponse(Call<List<FAQ>> call, Response<List<FAQ>> response) {
+                if (response.isSuccessful()) {
+                    adapter.setData(response.body());
 
+                } else {
+                    Log.e("Error", "Failed");
+                }
+            }
 
-    @Override
-    public void recyclerViewListClicked(int position) {
-
+            @Override
+            public void onFailure(Call<List<FAQ>> call, Throwable t) {
+                Log.e("Error", "Network error: " + t.getMessage());
+            }
+        });
     }
 
-    public void returnFunction(View view) {
-        Intent intent = new Intent(FaqActivity.this, LoginActivity.class);
-        startActivity(intent);
-    }
 
-    public void FAQ(View view) {
-        Intent intent = new Intent(FaqActivity.this, FaqActivity.class);
-        startActivity(intent);
-    }
 }
