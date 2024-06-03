@@ -41,7 +41,7 @@ public interface ApiService
     @POST("/store/buyProduct/{username}/{idProduct}")
     Call<List<Product>> buyProduct(@Path("username") String username, @Path("idProduct") String idProduct);
 
-    @GET("/user/faq")
+    @GET("user/faqs")
     Call<List<FAQ>> getFAQs();
 
 

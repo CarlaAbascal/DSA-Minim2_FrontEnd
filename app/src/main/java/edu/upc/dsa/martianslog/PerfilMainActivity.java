@@ -60,6 +60,7 @@ public class PerfilMainActivity extends AppCompatActivity
                 Intent intent = new Intent(PerfilMainActivity.this, TiendaActivity.class);
                 startActivity(intent);
             }});
+
         //Codi del boto per anar a la FAQ
         Button buttongoFAQs = findViewById(R.id.FAQbutton);
         buttongoFAQs.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +69,8 @@ public class PerfilMainActivity extends AppCompatActivity
                 Intent intent = new Intent(PerfilMainActivity.this, FaqActivity.class);
                 startActivity(intent);
             }});
+
+
 
 
         //Codi per recollir el username del login i imprimirlo
@@ -106,6 +109,8 @@ public class PerfilMainActivity extends AppCompatActivity
         //fetchUser();
 
     }
+
+
 
 
     public void showDataOnClick(View view){

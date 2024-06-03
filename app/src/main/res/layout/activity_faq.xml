@@ -6,20 +6,11 @@
     android:layout_height="match_parent"
     android:background="@drawable/background2">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycle"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dinero" />
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="132dp"
+        android:layout_marginTop="80dp"
         android:text="FAQs"
         android:textSize="50dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,15 +22,20 @@
         android:id="@+id/FAQbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="232dp"
+        android:layout_marginTop="150dp"
         android:text="Questions"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="156dp" />
+        tools:layout_editor_absoluteX="156dp"
+        tools:ignore="MissingConstraints" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="409dp"
         android:layout_height="449dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="44dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FAQbtn"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="281dp" />
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>

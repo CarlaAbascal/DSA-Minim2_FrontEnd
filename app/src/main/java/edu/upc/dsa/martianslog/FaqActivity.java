@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -23,13 +24,26 @@ public class FaqActivity extends AppCompatActivity {
     ApiService apiService;
     private RecyclerView recyclerViewFAQ;
     private AdapterFAQ adapter;
+    private RecyclerView.LayoutManager layoutManager;
     public static final String API_URL = "http://10.0.2.2:8080/dsaApp/";
     private static final String TAG = "POKEDEX";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_faq);
+
+        // Initialize RecyclerView
+        recyclerViewFAQ = findViewById(R.id.recycler_view);
+        recyclerViewFAQ.setLayoutManager(new LinearLayoutManager(this));
+
+        // use a linear layout manager
+        layoutManager = new LinearLayoutManager(FaqActivity.this);
+        recyclerViewFAQ.setLayoutManager(layoutManager);
+
+        // Set the adapter
+        adapter = new AdapterFAQ();
+        recyclerViewFAQ.setAdapter(adapter);
 
         //Declaración del retrofit
         Retrofit retrofit = new Retrofit.Builder()
@@ -37,6 +51,26 @@ public class FaqActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiService = retrofit.create(ApiService.class);
+
+
+        //Funcio per cridar FAQs
+        Call<List<FAQ>> call = apiService.getFAQs();
+        call.enqueue(new Callback<List<FAQ>>() {
+            @Override
+            public void onResponse(Call<List<FAQ>> call, Response<List<FAQ>> response) {
+                if (response.isSuccessful()) {
+                    adapter.setData(response.body());
+
+                } else {
+                    Log.e("Error", "Failed");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<FAQ>> call, Throwable t) {
+                Log.e("Error", "Network error: " + t.getMessage());
+            }
+        });
 
     }
 
